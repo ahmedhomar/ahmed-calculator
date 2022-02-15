@@ -1,4 +1,8 @@
 // variables
+
+let queue = [];
+let input = 0;
+
 const numButton = document.getElementsByClassName("num-button");
 const operatorButton = document.getElementsByClassName("operator-button");
 const display = getElementById("result");
@@ -42,3 +46,10 @@ for (let index = 0; index < numButton.length; index++) {
 operatorButton.addEventListener("click", solve);
 
 clear.addEventListener("click", clearAll);
+
+
+
+
+
+
+                       
