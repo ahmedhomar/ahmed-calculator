@@ -11,6 +11,7 @@ const onInputButtonClick = (event) => {
 // To display the value
 const displayFunc = () => {
   document.getElementById("result").value;
+  alert("it's working");
 };
 //Evaluate and give result
 const solve = () => {
@@ -25,5 +26,7 @@ const clr = () => {
 
 // logic
 for (let index = 0; index < inputButtons.length; index++) {
-  inputButtons[index].addEventListener("click", onInputButtonClick);
+  inputButtons[index].addEventListener("click", displayFunc);
 }
+
+
