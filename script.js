@@ -1,8 +1,9 @@
 // variables
-const numButton = document.getElementsByClassName("num-button");
-const operatorButton = document.getElementsByClassName("operator-button");
+const numButton = document.getElementsByClassName("num-btn");
+const operatorButton = document.getElementsByClassName("operator-btn");
 const display = document.querySelector("#result");
 const clear = document.querySelector("#AC");
+let num;
 
 const keys = [
   "×",
@@ -21,20 +22,30 @@ const keys = [
   "0",
   ".",
 ];
-const operations = ["*", "÷", "+", "-"];
+const operations = ["×", "÷", "+", "-"];
+
+console.log(numButton);
 
 // functions:
 
 const onInputButtonClick = (event) => {
-  const num = event.target.innerText;
+  num = event.target.innerText;
   console.log(`You pressed ${num}`);
 };
 
+const updateDisplay = (userInput) => {
+  document.getElementById("result").innerText = userInput;
+}
+
 // To display the value
-const displayFunc = () => {
-  document.getElementById("result").value;
-  alert("it's working");
+const displayFunc = (event) => {
+  num = event.target.value; 
+  // C;
+  // alert("it's working");
+  console.log(num);
+  updateDisplay(num)
 };
+
 
 //Evaluate and give result
 const solve = () => {
@@ -54,6 +65,6 @@ for (let index = 0; index < numButton.length; index++) {
   numButton[index].addEventListener("click", displayFunc);
 }
 
-operatorButton.addEventListener("click", solve);
+// operatorButton.addEventListener("click", solve);
 
-clear.addEventListener("click", clearAll);
+// clear.addEventListener("click", clearAll);
