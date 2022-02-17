@@ -29,14 +29,14 @@ for (let i = 0; i < numButton.length; i++) {
       lastChar === "×" ||
       lastChar === "÷" )
      {
-     display.innerHTML = e.target.value;
+     display.innerHTML = e.target.innerHTML;
        // if the last character is an operator
 
     } else {
       // display input
      
       
-      display.innerHTML += e.target.value;
+      display.innerHTML += e.target.innerHTML;
     }
     
   });
@@ -55,7 +55,7 @@ for (let i = 0; i < numButton.length; i++) {
       
       //Take the current string, remove the last character and add the new character.
       
-      const newString = currentString.substring(0, currentString.length - 1) + e.target.value;
+      const newString = currentString.substring(0, currentString.length - 1) + e.target.innerHTML;
       display.innerHTML = newString;
     } else if (currentString.length == 0) {
       // if first button pressed is an operator => do nothing.
@@ -63,7 +63,7 @@ for (let i = 0; i < numButton.length; i++) {
     } else {
       // else add the operator pressed to the input
 
-      display.innerHTML += e.target.value;
+      display.innerHTML += e.target.innerHTML;
     }
     
 
