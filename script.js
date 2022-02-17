@@ -1,8 +1,16 @@
+// How a calculator works
+// 1. Get the equation
+// 2. Break it down using "bodmas"
+// 3. Calculate it
+// 4. Return the solution
+
 // variables
-const numButton = document.getElementsByClassName("num-btn");
-const operatorButton = document.getElementsByClassName("operator-btn");
-const display = document.querySelector("#result");
-const clear = document.querySelector("#AC");
+const numButton = document.querySelectorAll(".num-btn"); // number buttons
+const operatorButton = document.querySelectorAll(".operator-btn");// operator buttons
+const display = document.getElementById("result");// input/output 
+const clear = document.getElementById("AC");// clear button
+const equalsBtn = document.getElementById("equals");// equals button
+
 let num;
 
 const keys = [
@@ -21,6 +29,7 @@ const keys = [
   "1",
   "0",
   ".",
+  "AC"
 ];
 const operations = ["×", "÷", "+", "-"];
 
@@ -28,17 +37,12 @@ console.log(numButton);
 
 // functions:
 
-const onInputButtonClick = (event) => {
-  num = event.target.innerText;
-  console.log(`You pressed ${num}`);
-};
-
 const updateDisplay = (userInput) => {
   document.getElementById("result").innerText = userInput;
 }
 
 // To display the value
-const displayFunc = (event) => {
+const onInputButtonClick = (event) => {
   num = event.target.value; 
   // C;
   // alert("it's working");
