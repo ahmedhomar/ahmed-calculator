@@ -21,26 +21,27 @@ for (let i = 0; i < numButton.length; i++) {
     // store current input string and its last character in variables
     const currentString = display.innerHTML;
     const lastChar = currentString[currentString.length - 1];
-    console.log("working");
    
+    console.log("working")
 
      if (lastChar === "+" ||
       lastChar === "-" ||
       lastChar === "×" ||
       lastChar === "÷" )
      {
-     
+     display.innerHTML = e.target.value;
        // if the last character is an operator
 
     } else {
       // display input
      
       
-      display.innerHTML += e.target.innerHTML;
+      display.innerHTML += e.target.value;
     }
     
   });
 }
+
 for (let i = 0; i < numButton.length; i++) {
   numButton[i].addEventListener("click", ((e) => {
 
@@ -51,7 +52,10 @@ for (let i = 0; i < numButton.length; i++) {
   // if last character entered is an operator => replace it with the currently pressed one
 
     if (lastChar === "+" ||lastChar === "-" ||lastChar === "×" ||lastChar === "÷") {
-      const newString = currentString.substring(0, currentString.length - 1) + e.target.innerHTML;
+      
+      //Take the current string, remove the last character and add the new character.
+      
+      const newString = currentString.substring(0, currentString.length - 1) + e.target.value;
       display.innerHTML = newString;
     } else if (currentString.length == 0) {
       // if first button pressed is an operator => do nothing.
@@ -59,34 +63,82 @@ for (let i = 0; i < numButton.length; i++) {
     } else {
       // else add the operator pressed to the input
 
-      display.innerHTML += e.target.innerHTML;
+      display.innerHTML += e.target.value;
     }
+    
 
   }));
 
 
-// Upon clicking "=" button:
- equalsBtn.addEventListener("click", () => {
+// Event Listener for "=" button:
+ equalsBtn.addEventListener("click", (e) => {
 
   // Display string we'll be processing: e.g 5+33-12/10
   
   const inputString = display.innerHTML;
 
   //Split the input string into an array of numbers: ["5", "33", "12", "10"]
-  
-  const numbers = inputString.split(/\+|\-|\×|\÷/g);
+
+  const numbers = inputString.split(/\+|\-|\×|\÷/g); //It splits the input string into an array of numbers.
 
   // Create an array of operators. for above string it will be: operators = ["+", "+", "-", "*", "/"]
   // Replace all the numbers and dot with empty string and then split
-  const operators = inputString.replace(/[0-9]|\./g, "").split("");
-
+  
+  const operators = inputString.replace(/[0-9]|\./g, "").split(""); //It removes all numbers and decimals from the input string and splits the remaining characters into an array.
+  
   console.log(inputString);
   console.log(operators);
   console.log(numbers);
   console.log("----------------------------");
+
+  // now we need to loop through the array and doing one operation at a time.
+  // /, then *, then - and then + as we move we are alterning the original numbers and operators array
+  // the final element remaining in the array will be the output
+
+  let divide = operators.indexOf("÷");
+  while (divide != -1) {
+    numbers.splice(divide, 2, numbers[divide] / numbers[divide + 1]);
+    operators.splice(divide, 1);
+    divide = operators.indexOf("÷");
+  }
+ /*
+  1. Loop runs as long as the index of the operator “÷” is not -1.
+  2. The splice method removes the two numbers at the index of the operator “÷” and replace them with the result of the division.
+  3. The operators array will be updated to remove the operator “÷”.
+  4. The divide variable will be updated to the index of the next operator in the operators array.
+  */
+  let multiply = operators.indexOf("×");
+  while (multiply != -1) {
+    numbers.splice(multiply, 2, numbers[multiply] * numbers[multiply + 1]);
+    operators.splice(multiply, 1);
+    multiply = operators.indexOf("×");
+  }
+
+ let subtract = operators.indexOf("-");
+  while (subtract != -1) {
+    numbers.splice(subtract, 2, numbers[subtract] - numbers[subtract + 1]);
+    operators.splice(subtract, 1);
+    subtract = operators.indexOf("-");
+  }
+  let add = operators.indexOf("+");
+  while (add != -1) {
+    // parseFloat => parses a string into a floating point number: used here to avoid string concatenation
+    numbers.splice(add, 2, parseFloat(numbers[add]) + parseFloat(numbers[add + 1]));
+    operators.splice(add, 1);
+    add = operators.indexOf("+");
+  }
+
+  display.innerHTML = numbers[0]; // displays the output
+
+  
  });
 
 
+ // Pressing AC...
+
+clear.addEventListener("click", (e) => {
+  display.innerHTML = "";
+});
 
 
 
@@ -101,7 +153,12 @@ for (let i = 0; i < numButton.length; i++) {
 
 
 
- 
+
+
+
+
+
+
 
 // const keys = [
 //   "×",
@@ -154,4 +211,4 @@ for (let i = 0; i < numButton.length; i++) {
 
 // operatorButton.addEventListener("click", solve);
 
-// clear.addEventListener("click", clearAll);
+// clear.addEventListener("click", clearAll)
