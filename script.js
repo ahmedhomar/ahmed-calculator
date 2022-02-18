@@ -13,7 +13,7 @@ const clear = document.getElementById("AC"); // clear button
 const equalsBtn = document.getElementById("equals"); // equals button
 const decimalButton = document.querySelector(".decimal"); // decimal button
 
-let currentString;
+let currentString = "";
 let operatorString;
 let secondNumber;
 let decimalString = ".";
@@ -22,12 +22,13 @@ let decimalString = ".";
 
 for (let i = 0; i < numButton.length; i++) {
   numButton[i].addEventListener("click", (e) => {
-    // store current input string and its last character in variables
-    // chaining numbers
-    if (e.target.value != operatorString || decimalString) {
+    if(currentString.charAt(0) === '0' && e.target.value === "0" && decimalString === "") {
+      // if first character in string is 0: do nothing
+      console.log('If statement ran');
+    } else if (e.target.value != operatorString || decimalString) {
       currentString += e.target.value;
       display.innerHTML = currentString;
-      const lastChar = currentString[currentString.length - 1];
+      const lastChar = currentString[currentString.length - 1];// store current input string and its last character in variables
       console.log(currentString);
     } else if (currentString.length === 1 && decimalString != "") {
       currentString = e.target.value + decimalString;
@@ -36,8 +37,7 @@ for (let i = 0; i < numButton.length; i++) {
     else { display.innerHTML = "Enter a number";}
   });
 }
-
-// Click handlers for Operator buttons:
+  
 
 for (let i = 0; i < operatorButton.length; i++) {
   operatorButton[i].addEventListener("click", (e) => {
@@ -53,11 +53,20 @@ for (let i = 0; i < operatorButton.length; i++) {
 
 decimalButton.addEventListener("click", (e) => {
   decimalString = e.target.value;
-  if (currentString != "") {
-    display.innerHTML = currentString + decimalString;
-  } else if (secondNumber != "") {
-    display.innerHTML = currentString + decimalString;
-  }
+  console.log(currentString, decimalString);
+  if(!currentString.includes('.')) {
+    currentString += '.'
+  } else{
+    return currentString;
+   }
+  // if (currentString != "") {
+  //   display.innerHTML = currentString + decimalString;
+  // } else if (secondNumber != "") {
+  //   display.innerHTML = secondNumber + decimalString;
+  // }
+  // else{
+  //   display.innerHTML = "ERROR"
+  // }
 });
 
 
