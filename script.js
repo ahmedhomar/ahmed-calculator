@@ -43,19 +43,20 @@ for (let i = 0; i < numButton.length; i++) {
 }
 
 for (let i = 0; i < numButton.length; i++) {
-  numButton[i].addEventListener("click", ((e) => {
+  numButton[i].addEventListener("click", (e) => {
 
     // store current input string and its last character in variables
-  const currentString = display.innerHTML;
+  let currentString = e.target.value;
+  display.innerHTML = currentString;
   const lastChar = currentString[currentString.length - 1];
-
+  console.log(lastChar, currentString);
   // if last character entered is an operator => replace it with the currently pressed one
 
     if (lastChar === "+" ||lastChar === "-" ||lastChar === "×" ||lastChar === "÷") {
       
       //Take the current string, remove the last character and add the new character.
       
-      const newString = currentString.substring(0, currentString.length - 1) + e.target.innerHTML;
+      const newString = currentString.substring(0, currentString.length - 1) + e.target.value;
       display.innerHTML = newString;
     } else if (currentString.length == 0) {
       // if first button pressed is an operator => do nothing.
@@ -66,9 +67,8 @@ for (let i = 0; i < numButton.length; i++) {
       display.innerHTML += e.target.innerHTML;
     }
     
-
-  }));
-
+  })
+}
 
 // Event Listener for "=" button:
  equalsBtn.addEventListener("click", (e) => {
