@@ -19,7 +19,7 @@ const equalsBtn = document.getElementById("equals"); // equals button
 for (let i = 0; i < numButton.length; i++) {
   numButton[i].addEventListener("click", (e) => {
     // store current input string and its last character in variables
-    const currentString = display.value;
+    const currentString = display.innerHTML;
     const lastChar = currentString[currentString.length - 1];
    
     console.log("working")
