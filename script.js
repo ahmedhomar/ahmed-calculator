@@ -19,25 +19,25 @@ const equalsBtn = document.getElementById("equals"); // equals button
 for (let i = 0; i < numButton.length; i++) {
   numButton[i].addEventListener("click", (e) => {
     // store current input string and its last character in variables
-    const currentString = display.innerHTML;
+    const currentString = display.value;
     const lastChar = currentString[currentString.length - 1];
    
     console.log("working")
 
-     if (lastChar === "+" ||
-      lastChar === "-" ||
-      lastChar === "×" ||
-      lastChar === "÷" )
-     {
-     display.innerHTML = e.target.innerHTML;
-       // if the last character is an operator
+    //  if (lastChar === "+" ||
+    //   lastChar === "-" ||
+    //   lastChar === "×" ||
+    //   lastChar === "÷" )
+    //  {
+    //  display.innerHTML = e.target.innerHTML;
+    //    // if the last character is an operator
 
-    } else {
-      // display input
+    // } else {
+    //   // display input
      
       
-      display.innerHTML += e.target.innerHTML;
-    }
+    //   display.innerHTML += e.target.innerHTML;
+    // }
     
   });
 }
@@ -92,7 +92,7 @@ for (let i = 0; i < numButton.length; i++) {
   console.log("----------------------------");
 
   // now we need to loop through the array and doing one operation at a time.
-  // /, then *, then - and then + as we move we are alterning the original numbers and operators array
+  // /, then *, then - and then + 
   // the final element remaining in the array will be the output
 
   let divide = operators.indexOf("÷");
