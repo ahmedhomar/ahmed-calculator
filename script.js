@@ -5,32 +5,39 @@
 // 4. Return the solution
 
 // variables
+
 const numButton = document.querySelectorAll(".num-btn"); // number buttons
 const operatorButton = document.querySelectorAll(".operator-btn"); // operator buttons
 const display = document.getElementById("result"); // input/output
 const clear = document.getElementById("AC"); // clear button
 const equalsBtn = document.getElementById("equals"); // equals button
-const decimalButton = document.querySelectorAll(".decimal"); // decimal button
+const decimalButton = document.querySelector(".decimal"); // decimal button
 
 let currentString;
 let operatorString;
 let secondNumber;
-// Functions
+let decimalString = ".";
 
 // click handlers for number buttons
 
 for (let i = 0; i < numButton.length; i++) {
   numButton[i].addEventListener("click", (e) => {
     // store current input string and its last character in variables
-    // check to see if display is empty - if it is then set currentString to displayValue, else chain numbers
-    currentString = e.target.value;
-    display.innerHTML = currentString;
-    const lastChar = currentString[currentString.length - 1];
-    console.log(currentString);
-
-    // if last character entered is an operator => replace it with the currently pressed one
+    // chaining numbers
+    if (e.target.value != operatorString || decimalString) {
+      currentString += e.target.value;
+      display.innerHTML = currentString;
+      const lastChar = currentString[currentString.length - 1];
+      console.log(currentString);
+    } else if (currentString.length === 1 && decimalString != "") {
+      currentString = e.target.value + decimalString;
+      display.innerHTML = currentString;
+    }
+    else { display.innerHTML = "Enter a number";}
   });
 }
+
+// Click handlers for Operator buttons:
 
 for (let i = 0; i < operatorButton.length; i++) {
   operatorButton[i].addEventListener("click", (e) => {
@@ -39,12 +46,76 @@ for (let i = 0; i < operatorButton.length; i++) {
     const lastChar = operatorString[operatorString.length - 1];
     secondNumber = currentString;
     currentString = "";
-
-    // if last character entered is an operator => replace it with the currently pressed one
   });
 }
 
-decimalButton.addEventListener("click", (e) =>
+// click handlers for Decimal button:
+
+decimalButton.addEventListener("click", (e) => {
+  decimalString = e.target.value;
+  if (currentString != "") {
+    display.innerHTML = currentString + decimalString;
+  } else if (secondNumber != "") {
+    display.innerHTML = currentString + decimalString;
+  }
+});
+
+
+
+// Event Listener for "=" button:
+
+equalsBtn.addEventListener("click", (e) => {
+  // Display string we'll be processing: e.g 5+33-12/10
+  console.log(currentString, secondNumber, operatorString, decimalString);
+  // const inputString = display.innerHTML;
+  let sum = 0;
+  if (operatorString === "+") {
+    sum = parseFloat(currentString) + parseFloat(secondNumber);
+    console.log(sum);
+  } else if (operatorString === "-") {
+    sum = parseFloat(secondNumber) - parseFloat(currentString);
+    console.log(sum);
+  } else if (operatorString === "×") {
+    sum = parseFloat(secondNumber) * parseFloat(currentString);
+    console.log(sum);
+  } else if (operatorString === "÷") {
+    sum = parseFloat(secondNumber) / parseFloat(currentString);
+    console.log(sum);
+  } else {
+    display.innerHTML = "ERROR";
+  }
+  console.log(sum, currentString, secondNumber);
+  currentString = sum;
+  display.innerHTML = sum;
+});
+
+// Event Listener for clear button:
+
+clear.addEventListener("click", (e) => {
+  display.innerHTML = "";
+  currentString = "";
+  operatorString = "";
+  secondNumber = "";
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -66,33 +137,7 @@ decimalButton.addEventListener("click", (e) =>
 //   display.innerHTML += e.target.value;
 // }
 
-// Event Listener for "=" button:
-equalsBtn.addEventListener("click", (e) => {
-  // Display string we'll be processing: e.g 5+33-12/10
-  console.log(currentString, secondNumber, operatorString);
-  // const inputString = display.innerHTML;
-  let sum = 0;
-  if (operatorString === "+") {
-    sum = parseFloat(currentString) + parseFloat(secondNumber);
-    console.log(sum);
-  } else if (operatorString === "-") {
-    sum = parseFloat(secondNumber) - parseFloat(currentString);
-    console.log(sum);
-  } else if (operatorString === "×") {
-    sum = parseFloat(secondNumber) * parseFloat(currentString);
-    console.log(sum);
-  } else if (operatorString === "÷") {
-    sum = parseFloat(secondNumber) / parseFloat(currentString);
-    console.log(sum);
-  } else {
-    display.innerHTML = "ERROR";
-  }
-  console.log(sum, currentString, secondNumber);
-  currentString = sum;
-  display.innerHTML = sum;
 
-  //Split the input string into an array of numbers: ["5", "33", "12", "10"]
-});
 // const numbers = inputString.split(/\+|\-|\×|\÷/g); //It splits the input string into an array of numbers.
 
 // // Create an array of operators. for above string it will be: operators = ["+", "+", "-", "*", "/"]
@@ -151,14 +196,6 @@ equalsBtn.addEventListener("click", (e) => {
 // });
 
 // Pressing AC...
-
-clear.addEventListener("click", (e) => {
-  display.innerHTML = "";
-  currentString = "";
-  operatorString = "";
-  secondNumber = "";
-});
-
 // const keys = [
 //   "×",
 //   "÷",
